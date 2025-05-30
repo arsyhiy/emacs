@@ -1,0 +1,1 @@
+/home/arsen/.config/emacs/straight/repos/magit/lisp/magit-base.el

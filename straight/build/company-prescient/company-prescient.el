@@ -1,0 +1,1 @@
+/home/arsen/.config/emacs/straight/repos/prescient.el/company-prescient.el
