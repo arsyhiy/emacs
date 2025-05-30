@@ -1,1 +1,0 @@
-/home/arsen/.config/emacs/straight/repos/corfu/corfu.el

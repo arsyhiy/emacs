@@ -1,1 +1,0 @@
-/home/arsen/.config/emacs/straight/repos/seq/seq-pkg.el
