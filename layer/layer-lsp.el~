@@ -1,0 +1,14 @@
+(use-package lsp-mode
+    :defer t)
+(use-package lsp-ui
+  :ensure
+  :commands lsp-ui-mode
+  :custom
+  (lsp-headerline-breadcrumb-enable nil)
+  ;;(display-time-mode t) ;;showing time on modeline
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-sideline-show-code-actions t)
+  (lsp-ui-sideline-update-mode t))
+
+(provide 'layer-lsp)
