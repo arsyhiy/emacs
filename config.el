@@ -27,6 +27,7 @@
 	  layer-projectile
 	  layer-yasnippet
 	  layer-dashboard
+	  layer-treemacs
               ))
 (add-to-list 'load-path (concat user-emacs-directory "layer"))
 (dolist (layer layer)
@@ -137,3 +138,22 @@
 ; Pretty self-explanatory
 (setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
   confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
+
+; Sound
+; Disable the bell (auditory or visual).
+(setq-default visible-bell nil             ; No visual bell
+              ring-bell-function 'ignore)  ; No bell
+
+; Mouse behavior can be finely controlled using the mouse-avoidance-mode.
+(setq-default mouse-yank-at-point t) ; Yank at point rather than pointer
+(mouse-avoidance-mode 'exile)        ; Avoid collision of mouse with point
+
+; Record cursor position from one session ot the other
+(setq save-place-file (expand-file-name "saveplace" user-emacs-directory)
+      save-place-forget-unreadable-files t)
+(save-place-mode 1)
+
+; Smoother scrolling.
+(setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
+              scroll-margin 2                 ; Add a margin when scrolling vertically
+              recenter-positions '(5 bottom)) ; Set re-centering positions
