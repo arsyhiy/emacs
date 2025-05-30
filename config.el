@@ -1,4 +1,4 @@
-;; config.el
+; config.el
 
 
 
@@ -8,6 +8,9 @@
               layer-magit ;; git interface
               layer-treesit
               layer-company
+              layer-corfu
+	      layer-orderless
+	      layer-vertico-marginalia
               ))
 (add-to-list 'load-path (concat user-emacs-directory "layer"))
 (dolist (layer layer)
@@ -49,8 +52,41 @@
 (nano-light)
 
 
-
 (evil-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Global variables
+(setq globals--leader-key   "<SPC>") ; Leader prefix key used for most bindings
+
+; remaps RET
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Utilities
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; deleting ^M character
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
+; Zooming In/Out
+; You can use the bindings C-+ C– for zooming in/out. You can also use CTRL plus the mouse wheel for zooming in/out.
+(use-package emacs
+  :bind
+  ("C-+" . text-scale-increase)
+  ("C--" . text-scale-decrease)
+  ("<C-wheel-up>" . text-scale-increase)
+  ("<C-wheel-down>" . text-scale-decrease))
+
+
+; Default to utf-8 encoding.
+(set-default-coding-systems 'utf-8)
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)

@@ -119,11 +119,4 @@
 ; (add-hook 'after-init-hook 'spartan-user-local-hook)
 ;
 
-(use-package emacs
-  :bind
-  ("C-+" . text-scale-increase)
-  ("C--" . text-scale-decrease)
-  ("<C-wheel-up>" . text-scale-increase)
-  ("<C-wheel-down>" . text-scale-decrease))
-
 ; ;;; init.el ends here

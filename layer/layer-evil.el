@@ -9,8 +9,11 @@
   (setq evil-want-C-i-jump nil)      ;; Disables C-i jump
   (setq evil-undo-system 'undo-redo) ;; C-r to redo
   (setq org-return-follows-link t)  ;; Sets RETURN key in org-mode to follow links
-  
-)
+  ;; Unmap keys in 'evil-maps. If not done, org-return-follows-link will not work
+  :bind (:map evil-motion-state-map
+              ("SPC" . nil)
+              ("RET" . nil)
+              ("TAB" . nil)))
 
 (use-package evil-collection
   :after evil
@@ -19,5 +22,6 @@
   ;; Setting where to use evil-collection
   (setq evil-collection-mode-list '(dired ibuffer magit corfu vertico consult))
   (evil-collection-init))
+
 
 (provide 'layer-evil)
