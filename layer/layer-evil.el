@@ -35,4 +35,6 @@
 ;;                                                image-dired-thumbnail-mode
 ;;                                                eww-mode))
 
+(evil-mode)
+
 (provide 'layer-evil)

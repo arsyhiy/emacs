@@ -1,14 +1,11 @@
 ; config.el
 
 
-(require 'use-package-ensure) ;; Load use-package-always-ensure
-(setq use-package-always-ensure t) ;; Always ensures that a package is installed
-(setq package-archives '(("melpa" . "https://melpa.org/packages/") ;; Sets default package repositories
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/"))) ;; For Eat Terminal
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; layers
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq layer '(
+(setq layers '(
               layer-evil ;; vi mode
               layer-magit ;; git interface
               layer-treesit
@@ -30,16 +27,23 @@
 	  layer-treemacs
               ))
 (add-to-list 'load-path (concat user-emacs-directory "layer"))
-(dolist (layer layer)
-  (require layer))
+(dolist (layers layers)
+  (require layers))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bindings
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Global variables
+(setq globals--leader-key   "<SPC>") ; Leader prefix key used for most bindings
 
+;; remaps RET
+(global-set-key (kbd "RET") 'newline-and-indent)
 
-;General Keybindings
+;; General Keybindings
 
-; A keybinding framework to set keybindings easily. The Leader key is what you will press when you want to access your keybindings (SPC + . Find file). To search and replace, use query-replace-regexp to replace one by one C-M-% (SPC to replace n to skip). NOTE: кнопки я современем настрою а не в один присест
+;; A keybinding framework to set keybindings easily. The Leader key is what you will press when you want to access your keybindings (SPC + . Find file). To search and replace, use query-replace-regexp to replace one by one C-M-% (SPC to replace n to skip). NOTE: кнопки я современем настрою а не в один присест
 
 (use-package general
 	:defer t
@@ -105,72 +109,24 @@
       "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
       "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
 
+(mapc (lambda (mode)
+          (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
+                                                  elfeed-search-mode
+                                                  forge-pullreq-list-mode
+                                                  forge-topic-list-mode
+                                                  dired-mode
+                                                  dashboard-mode
+                                                  tide-references-mode
+                                                  image-dired-mode
+                                                  image-dired-thumbnail-mode
+                                                  eww-mode))
 
-
-
-
-
-;; good defaults
-(use-package emacs
-  :custom
-  (when (>= emacs-major-version 29)
-  (pixel-scroll-precision-mode 1))
-  (show-help-function nil)    ; No help text
-  (use-file-dialog nil)       ; No file dialog
-  (use-dialog-box nil)        ; No dialog box
-  (pop-up-windows nil)       ; No popup windows
-  (menu-bar-mode nil)         ;; Disable the menu bar
-  (tool-bar-mode nil)         ;; Disable the tool bar
-  ;;(inhibit-startup-screen t)  ;; Disable welcome screen
-  (scroll-bar-mode nil)                    ; No scroll bars
-  (delete-selection-mode t)   ;; Select text and delete it by typing.
-  (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
-  (electric-pair-mode t)      ;; Turns on automatic parens pairing
-  (select-enable-clipboard t) ; Merge system's and Emacs' clipboard
-  (blink-cursor-mode t)     ;; Don't blink cursor
-  (global-auto-revert-mode t) ;; Automatically reload file and show changes if the file has changed
-
-  ;;(dired-kill-when-opening-new-dired-buffer t) ;; Dired don't create new buffer
-  ;;(recentf-mode t) ;; Enable recent file mode
-
-  ;;(global-visual-line-mode t)           ;; Enable truncated lines
-  ;;(display-line-numbers-type 'relative) ;; Relative line numbers
-  (global-display-line-numbers-mode t)  ;; Display line numbers
-
-  (mouse-wheel-progressive-speed t) ;; Disable progressive speed when scrolling
-  (scroll-conservatively 10) ;; Smooth scrolling
-  ;;(scroll-margin 8)
-
-  (tab-width 2)
-  (setq-default indent-tabs-mode nil)
-
-  (make-backup-files nil) ;; Stop creating ~ backup files
-  (auto-save-default nil) ;; Stop creating # auto save files
-  :hook
-  (prog-mode . (lambda () (hs-minor-mode t))) ;; Enable folding hide/show globally
-  :config
-  ;; Move customization variables to a separate file and load it, avoid filling up init.el with unnecessary variables
-  (setq custom-file (locate-user-emacs-file "custom-vars.el"))
-  (load custom-file 'noerror 'nomessage)
-  :bind (
-           ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
-           )
- ;; Fix general.el leader key not working instantly in messages buffer with evil mode
-  :ghook ('after-init-hook
-          (lambda (&rest _)
-            (when-let ((messages-buffer (get-buffer "*Messages*")))
-            (with-current-buffer messages-buffer
-            (evil-normalize-keymaps))))
-            nil nil t)
-)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
-(setq nano-splash-timeout nil
+(setq ;;nano-splash-timeout nil
       nano-splash-timeout-sec 5
       nano-font-height 140
       nano-default-font "Roboto Mono") ; `nano-default-font' should support 'light and 'normal font shades
@@ -204,29 +160,6 @@
 
   (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0:bold")) ;; Set your favorite font
   (setq-default line-spacing 0.12)
-
-
-
-
-
- 
-
-
-(evil-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bindings
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; Global variables
-(setq globals--leader-key   "<SPC>") ; Leader prefix key used for most bindings
-
-; remaps RET
-(global-set-key (kbd "RET") 'newline-and-indent)
-
-
-
-
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -285,16 +218,62 @@
               recenter-positions '(5 bottom)) ; Set re-centering positions
 
 
-(mapc (lambda (mode)
-          (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
-                                                  elfeed-search-mode
-                                                  forge-pullreq-list-mode
-                                                  forge-topic-list-mode
-                                                  dired-mode
-                                                  dashboard-mode
-                                                  tide-references-mode
-                                                  image-dired-mode
-                                                  image-dired-thumbnail-mode
-                                                  eww-mode))
- 
- 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; good defaults 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package emacs
+  :custom
+  (when (>= emacs-major-version 29)
+  (pixel-scroll-precision-mode 1))
+  (show-help-function nil)    ; No help text
+  (use-file-dialog nil)       ; No file dialog
+  (use-dialog-box nil)        ; No dialog box
+  (pop-up-windows nil)       ; No popup windows
+  (menu-bar-mode nil)         ;; Disable the menu bar
+  (tool-bar-mode nil)         ;; Disable the tool bar
+  ;;(inhibit-startup-screen t)  ;; Disable welcome screen
+  (scroll-bar-mode nil)                    ; No scroll bars
+  (delete-selection-mode t)   ;; Select text and delete it by typing.
+  (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
+  (electric-pair-mode t)      ;; Turns on automatic parens pairing
+  (select-enable-clipboard t) ; Merge system's and Emacs' clipboard
+  (blink-cursor-mode t)     ;; Don't blink cursor
+  (global-auto-revert-mode t) ;; Automatically reload file and show changes if the file has changed
+
+  ;;(dired-kill-when-opening-new-dired-buffer t) ;; Dired don't create new buffer
+  ;;(recentf-mode t) ;; Enable recent file mode
+
+  ;;(global-visual-line-mode t)           ;; Enable truncated lines
+  ;;(display-line-numbers-type 'relative) ;; Relative line numbers
+  (global-display-line-numbers-mode t)  ;; Display line numbers
+
+  (mouse-wheel-progressive-speed t) ;; Disable progressive speed when scrolling
+  (scroll-conservatively 10) ;; Smooth scrolling
+  ;;(scroll-margin 8)
+
+  (tab-width 2)
+  (setq-default indent-tabs-mode nil)
+
+  (make-backup-files nil) ;; Stop creating ~ backup files
+  (auto-save-default nil) ;; Stop creating # auto save files
+  :hook
+  (prog-mode . (lambda () (hs-minor-mode t))) ;; Enable folding hide/show globally
+  :config
+  ;; Move customization variables to a separate file and load it, avoid filling up init.el with unnecessary variables
+  (setq custom-file (locate-user-emacs-file "custom-vars.el"))
+  (load custom-file 'noerror 'nomessage)
+  :bind (
+           ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
+           )
+ ;; Fix general.el leader key not working instantly in messages buffer with evil mode
+  :ghook ('after-init-hook
+          (lambda (&rest _)
+            (when-let ((messages-buffer (get-buffer "*Messages*")))
+            (with-current-buffer messages-buffer
+            (evil-normalize-keymaps))))
+            nil nil t)
+)
+
+; ;;; init.el ends here
