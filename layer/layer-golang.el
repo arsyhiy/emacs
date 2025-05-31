@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (defun ime-go-before-save ()
   (interactive)
   (when lsp-mode
@@ -14,3 +16,4 @@
               (add-hook 'before-save-hook 'ime-go-before-save))))
 
 (provide 'layer-golang)
+;;; layer-golang.el ends here

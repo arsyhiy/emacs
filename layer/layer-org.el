@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (use-package org
   :ensure nil
   :custom
@@ -27,3 +29,4 @@
   :after org)
 
 (provide 'layer-org)
+;;; layer-org.el ends here

@@ -22,3 +22,4 @@
     :defer t)
 
 (provide 'layer-vertico-marginalia)
+;;; layer-vertico-marginalia.el ends here

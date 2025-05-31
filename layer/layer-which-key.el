@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (use-package which-key
   :init
   (which-key-mode 1)
@@ -13,3 +15,4 @@
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 
 (provide 'layer-which-key)
+;;; layer-which-key.el ends here

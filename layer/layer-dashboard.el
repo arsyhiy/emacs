@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (use-package dashboard
   :straight
   :demand t
@@ -40,3 +42,4 @@
   (dashboard-setup-startup-hook))
 
 (provide 'layer-dashboard)
+;;; layer-dashboard.el ends here

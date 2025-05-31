@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (use-package cc-mode
   :ensure nil
   :config
@@ -5,3 +7,4 @@
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
 
 (provide 'layer-C)
+;;; layer-C.el ends here

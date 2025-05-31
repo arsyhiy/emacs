@@ -31,3 +31,4 @@
     :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (provide 'layer-corfu)
+;;; layer-corfu.el ends here

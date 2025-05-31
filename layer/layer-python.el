@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (use-package elpy
   :ensure t
   :defer t
@@ -7,3 +9,4 @@
 (use-package pyvenv)
 
 (provide 'layer-python)
+;;; layer-python.el ends here

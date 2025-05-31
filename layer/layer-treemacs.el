@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; no-byte-compile: t; -*-
+
 (use-package treemacs
   :ensure t
   :defer t
@@ -119,3 +121,4 @@
 (treemacs-start-on-boot)
 
 (provide 'layer-treemacs)
+;;; layer-treemacs.el ends here

@@ -2,7 +2,8 @@
 
 (use-package magit
   :straight t
-  :defer t)
+  :defer t
+	:commands magit-status)
 
 (use-package diff-hl
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
@@ -11,3 +12,5 @@
   :init (global-diff-hl-mode))
 
 (provide 'layer-magit)
+;;; layer-magit.el ends here
+
