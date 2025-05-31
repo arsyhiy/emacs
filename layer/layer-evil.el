@@ -23,5 +23,16 @@
   (setq evil-collection-mode-list '(dired ibuffer magit corfu vertico consult))
   (evil-collection-init))
 
+;;(mapc (lambda (mode)
+;;        (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
+;;                                                elfeed-search-mode
+;;                                                forge-pullreq-list-mode
+;;                                                forge-topic-list-mode
+;;                                                dired-mode
+;;                                                dashboard-mode
+;;                                                tide-references-mode
+;;                                                image-dired-mode
+;;                                                image-dired-thumbnail-mode
+;;                                                eww-mode))
 
 (provide 'layer-evil)
